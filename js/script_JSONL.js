@@ -9,11 +9,9 @@ editor.setOptions({
 
 function hasDuplicateKey(jsonString) {
   let splitData = jsonString.split(",");
-  console.log(splitData);
   for (let i = 0; i < splitData.length; i++) {
     let splitDataList = splitData[i].split('"');
     splitData[i] = splitDataList[1];
-    console.log(splitDataList);
   }
 
   let uniqueKeySet = new Set();
@@ -48,13 +46,12 @@ function lintJSONL() {
         counter -= 1;
 
         if (counter === 0) {
-          console.log(rawData.slice(start, i));
-          start = i + 1;
-
           if (hasDuplicateKey(rawData.slice(start, i))) {
             hasDuplicate = true;
             break;
           }
+
+          start = i + 1;
         }
       }
     }
