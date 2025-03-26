@@ -1,0 +1,23 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  display: flex;
+  flex-direction: column; /* Changes layout to vertical */
+}
+
+/* #editor, #output {
+  flex-grow: 1; /* Allows each to grow to fill available space */
+/* } */
+#editor,
+#output {
+  height: 100%;
+  width: 100%;
+}
+
+#output {
+  border-left: 1px solid #ccc;
+  overflow: auto;
+}
