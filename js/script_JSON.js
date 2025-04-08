@@ -42,7 +42,6 @@ function lintJSON() {
       if (rawData[i] === "{") {
         start.push(i);
       } else if (rawData[i] === "}") {
-        console.log(start);
         let start_i = start.pop();
 
         if (hasDuplicateKey(rawData.slice(start_i, i))) {
