@@ -20,7 +20,11 @@ function hasDuplicateKey(jsonString) {
       return true;
     }
 
-    uniqueKeySet.add(splitData[j]);
+    if (splitData[j] !== undefined) {
+      if (splitData[j].length !== 0) {
+        uniqueKeySet.add(splitData[j]);
+      }
+    }
   }
 
   return false;
@@ -32,7 +36,23 @@ function lintJSON() {
     var data = JSON.parse(rawData); // Parse JSON to validate
     var formattedJSON = JSON.stringify(data, null, 4); // Reformat JSON with 4-space indentation
 
-    if (hasDuplicateKey(rawData)) {
+    let hasDuplicate = false;
+    let start = [];
+    for (let i = 0; i < rawData.length; i++) {
+      if (rawData[i] === "{") {
+        start.push(i);
+      } else if (rawData[i] === "}") {
+        console.log(start);
+        let start_i = start.pop();
+
+        if (hasDuplicateKey(rawData.slice(start_i, i))) {
+          hasDuplicate = true;
+          break;
+        }
+      }
+    }
+
+    if (hasDuplicate === true) {
       document.getElementById("output").innerHTML =
         '<div class="alert alert-warning" role="alert">Duplicate keys found.</div>';
     } else {

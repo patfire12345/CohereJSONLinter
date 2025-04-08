@@ -20,7 +20,11 @@ function hasDuplicateKey(jsonString) {
       return true;
     }
 
-    uniqueKeySet.add(splitData[j]);
+    if (splitData[j] !== undefined) {
+      if (splitData[j].length !== 0) {
+        uniqueKeySet.add(splitData[j]);
+      }
+    }
   }
 
   return false;
