@@ -38,17 +38,24 @@ function lintJSON() {
 
     let hasDuplicate = false;
     let start = [];
-    for (let i = 0; i < rawData.length; i++) {
+    let i = 0;
+    while (i < rawData.length) {
       if (rawData[i] === "{") {
         start.push(i);
       } else if (rawData[i] === "}") {
         let start_i = start.pop();
+        let stringLen = rawData.slice(start_i, i).length;
 
         if (hasDuplicateKey(rawData.slice(start_i, i))) {
           hasDuplicate = true;
           break;
+        } else {
+          rawData = rawData.slice(0, start_i) + rawData.slice(i + 1);
+          i -= stringLen;
         }
       }
+
+      i++;
     }
 
     if (hasDuplicate === true) {
