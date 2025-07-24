@@ -51,15 +51,6 @@ function lintTSV() {
           }: Numeric value '${column}' should not contain commas or should be quoted.`
         );
       }
-
-      // Trim and check for leading/trailing spaces
-      if (column !== column.trim()) {
-        errorMessages.push(
-          `Warning on row ${index + 1}, column ${
-            columnIndex + 1
-          }: Leading/trailing spaces detected.`
-        );
-      }
     });
 
     // Prepare data for table rendering if no errors
