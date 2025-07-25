@@ -7,6 +7,8 @@ editor.setOptions({
   showGutter: true,
 });
 
+editor.focus();
+
 function hasDuplicateKey(jsonString) {
   let splitData = jsonString.split(",");
   for (let i = 0; i < splitData.length; i++) {

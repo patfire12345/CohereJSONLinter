@@ -7,6 +7,8 @@ editor.setOptions({
   showGutter: true,
 });
 
+editor.focus();
+
 function lintCSV() {
   var input = editor.getValue(); // Get CSV data from editor
 

@@ -4,6 +4,7 @@ editor.session.setMode("ace/mode/text"); // TSV is plain text
 
 editor.session.setUseSoftTabs(false);
 editor.session.setTabSize(4);
+editor.focus();
 
 editor.setOptions({
   useWorker: false,
