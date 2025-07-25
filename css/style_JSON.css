@@ -34,3 +34,24 @@ body {
   margin-top: 20px;
   color: red;
 }
+
+#editor-container {
+  position: relative;
+  width: 100%;
+}
+
+#editor {
+  height: 300px;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+#resizer {
+  height: 8px;
+  background: #ccc;
+  cursor: ns-resize;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
