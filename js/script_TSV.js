@@ -1,6 +1,10 @@
 // script_TSV.js
 var editor = ace.edit("editor");
-editor.session.setMode("ace/mode/text");
+editor.session.setMode("ace/mode/text"); // TSV is plain text
+
+editor.session.setUseSoftTabs(false);
+editor.session.setTabSize(4);
+
 editor.setOptions({
   useWorker: false,
   showLineNumbers: true,
