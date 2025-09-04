@@ -36,36 +36,36 @@ function lintJSON() {
     var data = JSON.parse(rawData); // Parse JSON to validate
     var formattedJSON = JSON.stringify(data, null, 4); // Reformat JSON with 4-space indentation
 
-    let hasDuplicate = false;
-    let start = [];
-    let i = 0;
-    while (i < rawData.length) {
-      if (rawData[i] === "{") {
-        start.push(i);
-      } else if (rawData[i] === "}") {
-        let start_i = start.pop();
-        let stringLen = rawData.slice(start_i, i).length;
+    // let hasDuplicate = false;
+    // let start = [];
+    // let i = 0;
+    // while (i < rawData.length) {
+    //   if (rawData[i] === "{") {
+    //     start.push(i);
+    //   } else if (rawData[i] === "}") {
+    //     let start_i = start.pop();
+    //     let stringLen = rawData.slice(start_i, i).length;
 
-        if (hasDuplicateKey(rawData.slice(start_i, i))) {
-          hasDuplicate = true;
-          break;
-        } else {
-          rawData = rawData.slice(0, start_i) + rawData.slice(i + 1);
-          i -= stringLen;
-        }
-      }
+    //     if (hasDuplicateKey(rawData.slice(start_i, i))) {
+    //       hasDuplicate = true;
+    //       break;
+    //     } else {
+    //       rawData = rawData.slice(0, start_i) + rawData.slice(i + 1);
+    //       i -= stringLen;
+    //     }
+    //   }
 
-      i++;
-    }
+    //   i++;
+    // }
 
-    if (hasDuplicate === true) {
-      document.getElementById("output").innerHTML =
-        '<div class="alert alert-warning" role="alert">Duplicate keys found.</div>';
-    } else {
-      editor.setValue(formattedJSON, -1); // Set formatted JSON back to editor, -1 moves cursor to the start
-      document.getElementById("output").innerHTML =
-        '<div class="alert alert-success" role="alert">Valid JSON! Formatted successfully.</div>';
-    }
+    // if (hasDuplicate === true) {
+    //   document.getElementById("output").innerHTML =
+    //     '<div class="alert alert-warning" role="alert">Duplicate keys found.</div>';
+    // } else {
+    editor.setValue(formattedJSON, -1); // Set formatted JSON back to editor, -1 moves cursor to the start
+    document.getElementById("output").innerHTML =
+      '<div class="alert alert-success" role="alert">Valid JSON! Formatted successfully.</div>';
+    // }
   } catch (error) {
     document.getElementById("output").innerHTML =
       '<div class="alert alert-danger" role="alert">Invalid JSON: ' +
