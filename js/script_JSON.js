@@ -46,9 +46,28 @@ function lintJSON() {
     var data = JSON.parse(rawData); // Parse JSON to validate
     var formattedJSON = JSON.stringify(data, null, 4); // Reformat JSON with 4-space indentation
 
+    let count1 = 0;
+    let count2 = 0;
+
+    for (let i = 0; i < rawData.length; i++) {
+      if (rawData[i] == '"') {
+        count1 += 1;
+      }
+    }
+
+    for (let i = 0; i < formattedJSON.length; i++) {
+      if (formattedJSON[i] == '"') {
+        count2 += 1;
+      }
+    }
+
     let hasDuplicate =
       rawData.replace(/\s/g, "").length !==
-      formattedJSON.replace(/\s/g, "").length;
+        formattedJSON.replace(/\s/g, "").length && count1 !== count2;
+
+    console.log(rawData.length);
+    console.log(formattedJSON.length);
+    console.log(hasDuplicate);
 
     if (hasDuplicate === true) {
       document.getElementById("output").innerHTML =
