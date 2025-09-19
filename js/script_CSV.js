@@ -57,7 +57,7 @@ function lintCSV() {
   const headerRow = [];
 
   rows.forEach((row, index) => {
-    const columns = row.match(/(".*?"|[^,\n]+|(?<=,|^)(?=,|$))/g);
+    const columns = row.match(/("([^"]|"")*"|[^,\n]+|(?<=,|^)(?=,|$))/g);
 
     if (!columns) {
       errorMessages.push(
