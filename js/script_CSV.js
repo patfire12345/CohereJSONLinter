@@ -51,13 +51,15 @@ function lintCSV() {
   }
 
   const rows = input.split("\n");
-  const numColumns = rows[0].match(/(".*?"|[^,\n]+|(?<=,|^)(?=,|$))/g).length;
+  const numColumns = rows[0].match(
+    /("([^"]|"")*"\s*|[^,\n]+|(?<=,|^)(?=,|$))/g
+  ).length;
   const errorMessages = [];
   const tableRows = [];
   const headerRow = [];
 
   rows.forEach((row, index) => {
-    const columns = row.match(/("([^"]|"")*"|[^,\n]+|(?<=,|^)(?=,|$))/g);
+    const columns = row.match(/("([^"]|"")*"\s*|[^,\n]+|(?<=,|^)(?=,|$))/g);
 
     if (!columns) {
       errorMessages.push(
