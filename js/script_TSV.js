@@ -54,13 +54,13 @@ function lintTSV() {
   }
 
   const rows = input.split("\n");
-  const numColumns = rows[0].split("\t").length;
+  const numColumns = rows[0].split(/\t|\\t/).length;
   const errorMessages = [];
   const tableRows = [];
   const headerRow = [];
 
   rows.forEach((row, index) => {
-    const columns = row.split("\t");
+    const columns = row.split(/\t|\\t/);
 
     if (!columns) {
       errorMessages.push(
