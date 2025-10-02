@@ -41,66 +41,113 @@ document.addEventListener("mouseup", () => {
 });
 
 function lintCSV() {
-  var input = editor.getValue(); // Get CSV data from editor
-
-  // Check if the input is empty
-  if (!input.trim()) {
-    const outputDiv = document.getElementById("output");
-    outputDiv.innerHTML = `<div class="alert alert-danger">Error: No CSV data provided. Please enter some CSV data for validation.</div>`;
-    return; // Stop the function if no input is provided
-  }
-
-  const rows = input.split("\n");
-  const numColumns = rows[0].match(
-    /("([^"]|"")*"\s*|[^,\n]+|(?<=,|^)(?=,|$))/g
-  ).length;
+  var csvString = editor.getValue();
   const errorMessages = [];
   const tableRows = [];
   const headerRow = [];
+  const outputDiv = document.getElementById("output");
 
-  rows.forEach((row, index) => {
-    const columns = row.match(/("([^"]|"")*"\s*|[^,\n]+|(?<=,|^)(?=,|$))/g);
+  // RFC 4180 requires CRLF (\r\n) line endings, but we allow LF too for practicality
+  const lines = csvString.split(/\r\n|\n/);
 
-    if (!columns) {
+  if (lines.length === 0) {
+    outputDiv.innerHTML = `<div class="alert alert-danger">Error: No CSV data provided. Please enter some CSV data for validation.</div>`;
+    return;
+  }
+
+  // Count number of columns from the first line
+  const firstRow = parseCSVRow(lines[0]);
+  if (!firstRow) {
+    outputDiv.innerHTML = `<div class="alert alert-danger">Error on row 1: Row could not be parsed correctly.</div>`;
+    return;
+  }
+
+  const columnCount = firstRow.length;
+
+  // Validate each row
+  for (let i = 0; i < lines.length; i++) {
+    const row = parseCSVRow(lines[i]);
+    if (!row) {
+      // invalid row structure
       errorMessages.push(
-        `Error on row ${index + 1}: Row could not be parsed correctly.`
+        `Error on row ${i + 1}: Row could not be parsed correctly.`
       );
-      return;
     }
 
-    // Check for column consistency
-    if (index != 0 && numColumns != columns.length) {
+    if (row.length !== columnCount) {
+      // uneven columns
       errorMessages.push(
-        `Error on row ${index + 1}: Expected ${numColumns} columns, found ${
-          columns.length
+        `Error on row ${i + 1}: Expected ${columnCount} columns, found ${
+          row.length
         }.`
       );
     }
 
     // Prepare data for table rendering if no errors
-    if (errorMessages.length == 0) {
-      if (index == 0) {
-        // Set headerRow
+    if (errorMessages.length === 0) {
+      if (i === 0) {
         headerRow.push(
-          `<tr>${columns.map((column) => `<th>${column}</th>`).join("")}</tr>`
+          `<tr>${row.map((column) => `<th>${column}</th>`).join("")}</tr>`
         );
       } else {
         tableRows.push(
-          `<tr>${columns.map((column) => `<td>${column}</td>`).join("")}</tr>`
+          `<tr>${row.map((column) => `<td>${column}</td>`).join("")}</tr>`
         );
       }
     }
-  });
+  }
 
-  const outputDiv = document.getElementById("output");
   if (errorMessages.length > 0) {
     outputDiv.innerHTML = `<div class="alert alert-danger"><ul>${errorMessages
       .map((msg) => `<li>${msg}</li>`)
       .join("")}</ul></div>`;
   } else {
-    console.log(headerRow);
     outputDiv.innerHTML = `<div class="alert alert-success" role="alert">Valid CSV!</div><table class="table table-bordered"><thead><tr>${headerRow.join(
       ""
     )}</tr></thead><tbody>${tableRows.join("")}</tbody></table>`;
   }
+}
+
+function parseCSVRow(row) {
+  const result = [];
+  let field = "";
+  let inQuotes = false;
+  let i = 0;
+
+  while (i < row.length) {
+    const char = row[i];
+
+    if (inQuotes) {
+      if (char === '"') {
+        if (row[i + 1] === '"') {
+          // Escaped quote
+          field += '"';
+          i++;
+        } else {
+          // Closing quote
+          inQuotes = false;
+        }
+      } else {
+        field += char;
+      }
+    } else {
+      if (char === '"') {
+        inQuotes = true;
+      } else if (char === ",") {
+        result.push(field);
+        field = "";
+      } else {
+        field += char;
+      }
+    }
+    i++;
+  }
+
+  // Push last field
+  result.push(field);
+
+  // If still inside quotes, invalid CSV row
+  if (inQuotes) return null;
+
+  return result;
 }
