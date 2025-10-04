@@ -30,7 +30,7 @@ document.addEventListener("mousemove", (e) => {
 
   if (newHeight > 100) {
     editorDiv.style.height = newHeight + "px";
-    resizer.style.top = newHeight + "px"; // Move the resizer with the cursor
+    resizer.style.top = newHeight + "px";
     editor.resize();
   }
 });
@@ -42,9 +42,9 @@ document.addEventListener("mouseup", () => {
 
 function lintJSON() {
   try {
-    var rawData = editor.getValue(); // Get JSON data from editor
-    var data = JSON.parse(rawData); // Parse JSON to validate
-    var formattedJSON = JSON.stringify(data, null, 4); // Reformat JSON with 4-space indentation
+    var rawData = editor.getValue();
+    var data = JSON.parse(rawData);
+    var formattedJSON = JSON.stringify(data, null, 4);
 
     let count1 = 0;
     let count2 = 0;
@@ -73,7 +73,8 @@ function lintJSON() {
       document.getElementById("output").innerHTML =
         '<div class="alert alert-warning" role="alert">Duplicate keys found.</div>';
     } else {
-      editor.setValue(formattedJSON, -1); // Set formatted JSON back to editor, -1 moves cursor to the start
+      // Set formatted JSON back to editor, -1 moves cursor to the start
+      editor.setValue(formattedJSON, -1);
       document.getElementById("output").innerHTML =
         '<div class="alert alert-success" role="alert">Valid JSON! Formatted successfully.</div>';
     }
