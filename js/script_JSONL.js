@@ -30,7 +30,7 @@ document.addEventListener("mousemove", (e) => {
 
   if (newHeight > 100) {
     editorDiv.style.height = newHeight + "px";
-    resizer.style.top = newHeight + "px"; // Move the resizer with the cursor
+    resizer.style.top = newHeight + "px";
     editor.resize();
   }
 });
@@ -65,14 +65,14 @@ function hasDuplicateKey(jsonString) {
 
 function lintJSONL() {
   try {
-    var rawData = editor.getValue(); // Get JSONL data from editor
-    var lines = rawData.trim().split("\n"); // Split the input into lines
+    var rawData = editor.getValue();
+    var lines = rawData.trim().split("\n");
     var validJSONLines = [];
     lines.forEach((line) => {
-      var data = JSON.parse(line); // Parse each line to validate JSONL
-      validJSONLines.push(JSON.stringify(data)); // Add valid JSONL line back to array
+      var data = JSON.parse(line);
+      validJSONLines.push(JSON.stringify(data));
     });
-    var formattedJSONL = validJSONLines.join("\n"); // Combine valid JSONL lines, separated by newlines
+    var formattedJSONL = validJSONLines.join("\n");
     let hasDuplicate = false;
     let start = 0;
     let counter = 0;
@@ -97,7 +97,7 @@ function lintJSONL() {
       document.getElementById("output").innerHTML =
         '<div class="alert alert-warning" role="alert">Duplicate keys found.</div>';
     } else {
-      editor.setValue(formattedJSONL, -1); // Set formatted JSONL back to editor, -1 moves cursor to the start
+      editor.setValue(formattedJSONL, -1);
       document.getElementById("output").innerHTML =
         '<div class="alert alert-success" role="alert">Valid JSONL! Formatted successfully.</div>';
     }
