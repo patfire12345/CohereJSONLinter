@@ -37,7 +37,7 @@ document.addEventListener("mousemove", (e) => {
 
   if (newHeight > 100) {
     editorDiv.style.height = newHeight + "px";
-    resizer.style.top = newHeight + "px"; // Move the resizer with the cursor
+    resizer.style.top = newHeight + "px";
     editor.resize();
   }
 });
@@ -61,16 +61,16 @@ function renderHTML() {
   };
 }
 
+// Prevent iframe from interacting with resizer
 const iframe = document.getElementById("output");
 
-// When starting drag
 resizer.addEventListener("mousedown", () => {
   iframe.style.pointerEvents = "none";
   document.addEventListener("mouseup", stopDrag);
 });
 
 function stopDrag() {
-  iframe.style.pointerEvents = "auto"; // restore iframe interactivity
+  iframe.style.pointerEvents = "auto";
   document.removeEventListener("mouseup", stopDrag);
 }
 
@@ -79,12 +79,12 @@ function bindAnchorClicks(frame) {
   var anchors = frame.contentDocument.querySelectorAll('a[href^="#"]');
   anchors.forEach((anchor) => {
     anchor.addEventListener("click", function (event) {
-      event.preventDefault(); // Prevent the default anchor handling
-      var targetId = anchor.getAttribute("href").substring(1); // Get the ID, removing '#'
+      event.preventDefault();
+      var targetId = anchor.getAttribute("href").substring(1);
       var targetElement = frame.contentDocument.getElementById(targetId);
       if (targetElement) {
-        // Scroll to the target element within the iframe
         targetElement.scrollIntoView();
+
         // Update the hash in the iframe's URL
         frame.contentWindow.location.hash = targetId;
       }
@@ -102,7 +102,7 @@ function lintHTML(html) {
   errors.forEach(function (error) {
     var type = "error";
     if (error.rule.id === "doctype-first") {
-      type = "warning"; // Set the type to "warning" for 'doctype-first' errors
+      type = "warning";
     }
     annotations.push({
       row: error.line - 1,
