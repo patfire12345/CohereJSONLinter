@@ -30,7 +30,7 @@ document.addEventListener("mousemove", (e) => {
 
   if (newHeight > 100) {
     editorDiv.style.height = newHeight + "px";
-    resizer.style.top = newHeight + "px"; // Move the resizer with the cursor
+    resizer.style.top = newHeight + "px";
     editor.resize();
   }
 });
@@ -55,7 +55,7 @@ function lintCSV() {
     return;
   }
 
-  // Count number of columns from the first line
+  // Count number of columns
   const firstRow = parseCSVRow(lines[0]);
   if (!firstRow) {
     outputDiv.innerHTML = `<div class="alert alert-danger">Error on row 1: Row could not be parsed correctly.</div>`;
@@ -64,18 +64,15 @@ function lintCSV() {
 
   const columnCount = firstRow.length;
 
-  // Validate each row
   for (let i = 0; i < lines.length; i++) {
     const row = parseCSVRow(lines[i]);
     if (!row) {
-      // invalid row structure
       errorMessages.push(
         `Error on row ${i + 1}: Row could not be parsed correctly.`
       );
     }
 
     if (row.length !== columnCount) {
-      // uneven columns
       errorMessages.push(
         `Error on row ${i + 1}: Expected ${columnCount} columns, found ${
           row.length
@@ -143,10 +140,8 @@ function parseCSVRow(row) {
     i++;
   }
 
-  // Push last field
   result.push(field);
 
-  // If still inside quotes, invalid CSV row
   if (inQuotes) return null;
 
   return result;
