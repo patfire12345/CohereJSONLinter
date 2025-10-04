@@ -1,6 +1,6 @@
 // script_TSV.js
 var editor = ace.edit("editor");
-editor.session.setMode("ace/mode/text"); // TSV is plain text
+editor.session.setMode("ace/mode/text");
 
 editor.session.setUseSoftTabs(false);
 editor.session.setTabSize(4);
@@ -33,7 +33,7 @@ document.addEventListener("mousemove", (e) => {
 
   if (newHeight > 100) {
     editorDiv.style.height = newHeight + "px";
-    resizer.style.top = newHeight + "px"; // Move the resizer with the cursor
+    resizer.style.top = newHeight + "px";
     editor.resize();
   }
 });
@@ -44,13 +44,12 @@ document.addEventListener("mouseup", () => {
 });
 
 function lintTSV() {
-  var input = editor.getValue(); // Get TSV data from editor
+  var input = editor.getValue();
 
-  // Check if the input is empty
   if (!input.trim()) {
     const outputDiv = document.getElementById("output");
     outputDiv.innerHTML = `<div class="alert alert-danger">Error: No TSV data provided. Please enter some TSV data for validation.</div>`;
-    return; // Stop the function if no input is provided
+    return;
   }
 
   const rows = input.split("\n");
@@ -69,7 +68,6 @@ function lintTSV() {
       return;
     }
 
-    // Check for column consistency
     if (index !== 0 && numColumns !== columns.length) {
       errorMessages.push(
         `Error on row ${index + 1}: Expected ${numColumns} columns, found ${
@@ -78,7 +76,6 @@ function lintTSV() {
       );
     }
 
-    // Prepare data for table rendering if no errors
     if (errorMessages.length === 0) {
       if (index === 0) {
         headerRow.push(
