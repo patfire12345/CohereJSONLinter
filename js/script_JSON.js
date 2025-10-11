@@ -65,10 +65,6 @@ function lintJSON() {
       rawData.replace(/\s/g, "").length !==
         formattedJSON.replace(/\s/g, "").length && count1 !== count2;
 
-    console.log(rawData.length);
-    console.log(formattedJSON.length);
-    console.log(hasDuplicate);
-
     if (hasDuplicate === true) {
       document.getElementById("output").innerHTML =
         '<div class="alert alert-warning" role="alert">Duplicate keys found.</div>';
