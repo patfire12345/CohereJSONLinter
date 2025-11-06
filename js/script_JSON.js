@@ -40,6 +40,18 @@ document.addEventListener("mouseup", () => {
   document.body.style.cursor = "default";
 });
 
+function badKey(json) {
+  jsonKeys = Object.keys(json);
+
+  for (let i = 0; i < jsonKeys.length; i++) {
+    if (jsonKeys[i].includes(" ")) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function lintJSON() {
   try {
     var rawData = editor.getValue();
@@ -65,13 +77,12 @@ function lintJSON() {
       rawData.replace(/\s/g, "").length !==
         formattedJSON.replace(/\s/g, "").length && count1 !== count2;
 
-    console.log(rawData.length);
-    console.log(formattedJSON.length);
-    console.log(hasDuplicate);
-
     if (hasDuplicate === true) {
       document.getElementById("output").innerHTML =
         '<div class="alert alert-warning" role="alert">Duplicate keys found.</div>';
+    } else if (badKey(data) === true) {
+      document.getElementById("output").innerHTML =
+        '<div class="alert alert-warning" role="alert">JSON is valid, but contains bad practices.</div>';
     } else {
       // Set formatted JSON back to editor, -1 moves cursor to the start
       editor.setValue(formattedJSON, -1);
