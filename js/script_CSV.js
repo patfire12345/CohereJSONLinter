@@ -84,11 +84,15 @@ function lintCSV() {
     if (errorMessages.length === 0) {
       if (i === 0) {
         headerRow.push(
-          `<tr>${row.map((column) => `<th>${column}</th>`).join("")}</tr>`
+          `<tr>${row
+            .map((column) => `<th>${column.trim()}</th>`)
+            .join("")}</tr>`
         );
       } else {
         tableRows.push(
-          `<tr>${row.map((column) => `<td>${column}</td>`).join("")}</tr>`
+          `<tr>${row
+            .map((column) => `<td>${column.trim()}</td>`)
+            .join("")}</tr>`
         );
       }
     }
