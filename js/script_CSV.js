@@ -72,7 +72,7 @@ function lintCSV() {
       );
     }
 
-    if (row.length !== columnCount) {
+    if (row && row.length !== columnCount) {
       errorMessages.push(
         `Error on row ${i + 1}: Expected ${columnCount} columns, found ${
           row.length
@@ -84,15 +84,11 @@ function lintCSV() {
     if (errorMessages.length === 0) {
       if (i === 0) {
         headerRow.push(
-          `<tr>${row
-            .map((column) => `<th>${column.trim()}</th>`)
-            .join("")}</tr>`
+          `<tr>${row.map((column) => `<th>${column}</th>`).join("")}</tr>`
         );
       } else {
         tableRows.push(
-          `<tr>${row
-            .map((column) => `<td>${column.trim()}</td>`)
-            .join("")}</tr>`
+          `<tr>${row.map((column) => `<td>${column}</td>`).join("")}</tr>`
         );
       }
     }
@@ -109,11 +105,12 @@ function lintCSV() {
   }
 }
 
-function parseCSVRow(row) {
+function parseCSVRow(rawRow) {
   const result = [];
   let field = "";
   let inQuotes = false;
   let i = 0;
+  let row = trimHelper(rawRow);
 
   while (i < row.length) {
     const char = row[i];
@@ -149,4 +146,29 @@ function parseCSVRow(row) {
   if (inQuotes) return null;
 
   return result;
+}
+
+function trimHelper(row) {
+  const result = [];
+  let field = "";
+  let i = 0;
+
+  while (i < row.length) {
+    const char = row[i];
+    if (char === ",") {
+      result.push(field);
+      field = "";
+    } else {
+      field += char;
+    }
+    i++;
+  }
+
+  result.push(field);
+
+  for (let i = 0; i < result.length; i++) {
+    result[i] = result[i].trim();
+  }
+
+  return result.join(",");
 }

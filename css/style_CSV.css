@@ -36,8 +36,9 @@ body {
   overflow-y: scroll;
 }
 
-#output td {
-  white-space: pre; /* Ensures all spaces and line breaks in the content are preserved */
+td,
+th {
+  white-space: pre-wrap; /* Preserves whitespace and allows text wrapping */
 }
 
 ul {
