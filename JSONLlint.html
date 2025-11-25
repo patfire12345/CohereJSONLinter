@@ -1,66 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JSON Linter</title>
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style_JSON.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
-  </head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Cohere Helper</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">HTML Renderer</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="JSONlint.html">JSON Linter</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">JSONL Linter</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="CSVlint.html">CSV Linter</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="TSVlint.html">TSV Linter</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Linter</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style_JSON.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
+</head>
 
-    <div id="editor-container">
-      <div id="editor"></div>
-      <div id="resizer"></div>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Cohere Helper</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">HTML Renderer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="mathjax.html">HTML (with LaTeX) Renderer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="JSONlint.html">JSON Linter</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">JSONL Linter</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="CSVlint.html">CSV Linter</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="TSVlint.html">TSV Linter</a>
+        </li>
+      </ul>
     </div>
-    <div class="button-container">
-      <button onclick="lintJSONL()" class="btn btn-primary">
-        Validate JSONL
-      </button>
-    </div>
+  </nav>
 
-    <!-- <button onclick="lintJSON()" class="btn btn-primary">Validate JSON</button> -->
-    <div id="output"></div>
-    <!-- <button onclick="lintJSON()">Lint JSON</button>
+  <div id="editor-container">
+    <div id="editor"></div>
+    <div id="resizer"></div>
+  </div>
+  <div class="button-container">
+    <button onclick="lintJSONL()" class="btn btn-primary">
+      Validate JSONL
+    </button>
+  </div>
+
+  <!-- <button onclick="lintJSON()" class="btn btn-primary">Validate JSON</button> -->
+  <div id="output"></div>
+  <!-- <button onclick="lintJSON()">Lint JSON</button>
     <div id="output"></div> -->
-  </body>
-  <script src="js/script_JSONL.js"></script>
+</body>
+<script src="js/script_JSONL.js"></script>
+
 </html>
