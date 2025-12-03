@@ -41,15 +41,28 @@ document.addEventListener("mouseup", () => {
 });
 
 function badKey(json) {
-  jsonKeys = Object.keys(json);
+  if (Array.isArray(json)) {
+    for (let i = 0; i < json.length; i++) {
+      let jsonKeys = Object.keys(json[i]);
 
-  for (let i = 0; i < jsonKeys.length; i++) {
-    if (jsonKeys[i].includes(" ")) {
-      return true;
+      for (let j = 0; j < jsonKeys.length; j++) {
+        if (jsonKeys[j].includes(" ")) {
+          return true;
+        }
+      }
     }
-  }
+    return false;
+  } else {
+    let jsonKeys = Object.keys(json);
 
-  return false;
+    for (let i = 0; i < jsonKeys.length; i++) {
+      if (jsonKeys[i].includes(" ")) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }
 
 function lintJSON() {
