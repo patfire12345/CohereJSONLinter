@@ -57,8 +57,14 @@ function lintTSV() {
   const errorMessages = [];
   const tableRows = [];
   const headerRow = [];
+  let tabWarning = false;
 
   rows.forEach((row, index) => {
+    let warningStr = /\\t[a-zA-Z0-9]/;
+    if (warningStr.test(row)) {
+      tabWarning = true;
+    }
+
     const columns = row.split(/\t|\\t/);
 
     if (!columns) {
@@ -94,6 +100,10 @@ function lintTSV() {
     outputDiv.innerHTML = `<div class="alert alert-danger"><ul>${errorMessages
       .map((msg) => `<li>${msg}</li>`)
       .join("")}</ul></div>`;
+  } else if (tabWarning) {
+    outputDiv.innerHTML = `<div class="alert alert-warning" role="alert">Warning: \\t is followed by non-space characters</div><table class="table table-bordered"><thead>${headerRow.join(
+      ""
+    )}</thead><tbody>${tableRows.join("")}</tbody></table>`;
   } else {
     outputDiv.innerHTML = `<div class="alert alert-success" role="alert">Valid TSV!</div><table class="table table-bordered"><thead>${headerRow.join(
       ""
