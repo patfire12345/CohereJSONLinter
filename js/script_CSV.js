@@ -105,16 +105,57 @@ function lintCSV() {
   }
 }
 
-function parseCSVRow(rawRow) {
+// function parseCSVRow(rawRow) {
+//   const result = [];
+//   let field = "";
+//   let inQuotes = false;
+//   let i = 0;
+//   let row = trimHelper(rawRow);
+
+//   while (i < row.length) {
+//     const char = row[i];
+
+//     if (inQuotes) {
+//       if (char === '"') {
+//         if (row[i + 1] === '"') {
+//           // Escaped quote
+//           field += '"';
+//           i++;
+//         } else {
+//           // Closing quote
+//           inQuotes = false;
+//         }
+//       } else {
+//         field += char;
+//       }
+//     } else {
+//       if (char === '"') {
+//         inQuotes = true;
+//       } else if (char === ",") {
+//         result.push(field);
+//         field = "";
+//       } else {
+//         field += char;
+//       }
+//     }
+//     i++;
+//   }
+
+//   result.push(field);
+
+//   if (inQuotes) return null;
+
+//   return result;
+// }
+
+function parseCSVRow(row) {
   const result = [];
   let field = "";
   let inQuotes = false;
   let i = 0;
-  let row = trimHelper(rawRow);
 
   while (i < row.length) {
     const char = row[i];
-
     if (inQuotes) {
       if (char === '"') {
         if (row[i + 1] === '"') {
@@ -143,32 +184,11 @@ function parseCSVRow(rawRow) {
 
   result.push(field);
 
-  if (inQuotes) return null;
-
-  return result;
-}
-
-function trimHelper(row) {
-  const result = [];
-  let field = "";
-  let i = 0;
-
-  while (i < row.length) {
-    const char = row[i];
-    if (char === ",") {
-      result.push(field);
-      field = "";
-    } else {
-      field += char;
-    }
-    i++;
-  }
-
-  result.push(field);
-
   for (let i = 0; i < result.length; i++) {
     result[i] = result[i].trim();
   }
 
-  return result.join(",");
+  if (inQuotes) return null;
+
+  return result;
 }
