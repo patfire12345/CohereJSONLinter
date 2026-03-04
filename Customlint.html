@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JSON Linter</title>
+  <title>Custom Linter</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style_JSON.css" />
+  <link rel="stylesheet" href="css/style_CSV.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
 </head>
 
@@ -28,8 +28,8 @@
         <li class="nav-item">
           <a class="nav-link" href="JSONlint.html">JSON Linter</a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="#">JSONL Linter</a>
+        <li class="nav-item">
+          <a class="nav-link" href="JSONLlint.html">JSONL Linter</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="CSVlint.html">CSV Linter</a>
@@ -37,21 +37,25 @@
         <li class="nav-item">
           <a class="nav-link" href="TSVlint.html">TSV Linter</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Customlint.html">Custom Linter</a>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Custom Linter</a>
         </li>
       </ul>
     </div>
   </nav>
+
+  <div style="margin: 20px; display: flex; align-items: center; justify-content: center; flex-direction: column">
+    <label for="Custom Delimiter">Custom Delimiter:</label>
+    <input type="text" maxlength="1" id="delimiter" style="width: 50px; height: 30px; text-align: center;">
+  </div>
 
   <div id="editor-container">
     <div id="editor"></div>
     <div id="resizer"></div>
   </div>
   <div class="button-container">
-    <button onclick="lintJSONL()" class="btn btn-primary">
-      Validate JSONL
-    </button>
+    <button id="custom-validate" onclick="lintCustom()" class="btn btn-primary" disabled>Validate
+      Custom</button>
   </div>
 
   <!-- <button onclick="lintJSON()" class="btn btn-primary">Validate JSON</button> -->
@@ -59,6 +63,6 @@
   <!-- <button onclick="lintJSON()">Lint JSON</button>
     <div id="output"></div> -->
 </body>
-<script src="js/script_JSONL.js"></script>
+<script src="js/script_Custom.js"></script>
 
 </html>
