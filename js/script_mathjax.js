@@ -19,8 +19,6 @@ editor.session.on("change", function () {
 editor.session.on("changeAnnotation", function () {
   let i = 0;
   while (i < editor.renderer.$gutterLayer.$annotations.length) {
-    console.log(i);
-    console.log(editor.renderer.$gutterLayer.$annotations);
     if (
       editor.renderer.$gutterLayer.$annotations[i].text.includes(
         "Doctype must be declared before any non-comment content.",
@@ -64,7 +62,6 @@ editor.session.on("changeAnnotation", function () {
         "Special characters must be escaped : [ &#60; ].",
       )
     ) {
-      console.log("<");
       editor.renderer.$gutterLayer.$annotations[i].text = [
         "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ &#60 ]",
       ];
