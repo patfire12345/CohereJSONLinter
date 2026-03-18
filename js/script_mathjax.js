@@ -16,6 +16,57 @@ editor.session.on("change", function () {
   renderHTML();
 });
 
+editor.session.on("changeAnnotation", function () {
+  for (let i = 0; i < editor.renderer.$gutterLayer.$annotations.length; i++) {
+    if (
+      editor.renderer.$gutterLayer.$annotations[i].text.includes(
+        "Doctype must be declared before any non-comment content.",
+      )
+    ) {
+      if (editor.renderer.$gutterLayer.$annotations[i].text.length === 1) {
+        editor.renderer.$gutterLayer.$annotations = [
+          ...editor.renderer.$gutterLayer.$annotations.slice(0, i),
+          ...editor.renderer.$gutterLayer.$annotations.slice(i + 1),
+        ];
+      } else {
+        const doctypeIndex = editor.renderer.$gutterLayer.$annotations[
+          i
+        ].text.indexOf(
+          "Doctype must be declared before any non-comment content.",
+        );
+        editor.renderer.$gutterLayer.$annotations[i].text = [
+          ...editor.renderer.$gutterLayer.$annotations[i].text.slice(
+            0,
+            doctypeIndex,
+          ),
+          ...editor.renderer.$gutterLayer.$annotations[i].text.slice(
+            doctypeIndex + 1,
+          ),
+        ];
+      }
+    }
+    if (
+      editor.renderer.$gutterLayer.$annotations[i].text.includes(
+        "Special characters must be escaped : [ > ].",
+      )
+    ) {
+      editor.renderer.$gutterLayer.$annotations[i].text = [
+        "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ > ]",
+      ];
+    }
+
+    if (
+      editor.renderer.$gutterLayer.$annotations[i].text.includes(
+        "Special characters must be escaped : [ < ].",
+      )
+    ) {
+      editor.renderer.$gutterLayer.$annotations[i].text = [
+        "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ < ]",
+      ];
+    }
+  }
+});
+
 // Drag-to-resize functionality
 const editorContainer = document.getElementById("editor-container");
 const editorDiv = document.getElementById("editor");
