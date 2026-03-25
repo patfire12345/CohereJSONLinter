@@ -12,67 +12,39 @@ editor.setOptions({
   showGutter: true,
 });
 
-var customAnnotations = [
-  {
-    row: 1, // line number 2 (0-indexed)
-    column: 0,
-    text: "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ < ]",
-    type: "error", // can be "error", "warning", or "info"
-  },
-];
-
 editor.session.on("change", function () {
   renderHTML();
 });
 
 editor.session.on("changeAnnotation", function () {
   let i = 0;
-  while (i < editor.renderer.$gutterLayer.$annotations.length) {
+  while (i < editor.session.$annotations?.length ?? 0) {
     if (
-      editor.renderer.$gutterLayer.$annotations[i].text.includes(
+      editor.session.$annotations[i].text.includes(
         "Doctype must be declared before any non-comment content.",
       )
     ) {
-      if (editor.renderer.$gutterLayer.$annotations[i].text.length === 1) {
-        editor.renderer.$gutterLayer.$annotations = [
-          ...editor.renderer.$gutterLayer.$annotations.slice(0, i),
-          ...editor.renderer.$gutterLayer.$annotations.slice(i + 1),
-        ];
-        continue;
-      } else {
-        const doctypeIndex = editor.renderer.$gutterLayer.$annotations[
-          i
-        ].text.indexOf(
-          "Doctype must be declared before any non-comment content.",
-        );
-        editor.renderer.$gutterLayer.$annotations[i].text = [
-          ...editor.renderer.$gutterLayer.$annotations[i].text.slice(
-            0,
-            doctypeIndex,
-          ),
-          ...editor.renderer.$gutterLayer.$annotations[i].text.slice(
-            doctypeIndex + 1,
-          ),
-        ];
-      }
+      editor.session.setAnnotations([
+        ...editor.session.$annotations.slice(0, i),
+        ...editor.session.$annotations.slice(i + 1),
+      ]);
+      continue;
     }
     if (
-      editor.renderer.$gutterLayer.$annotations[i].text.includes(
-        "Special characters must be escaped : [ > ].",
-      )
+      editor.session.$annotations[i].text ===
+      "Special characters must be escaped : [ > ]."
     ) {
-      editor.renderer.$gutterLayer.$annotations[i].text = [
+      editor.session.$annotations[i].text = [
         "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ > ]",
       ];
     }
 
     if (
-      editor.renderer.$gutterLayer.$annotations[i].text.includes(
-        "Special characters must be escaped : [ &#60; ].",
-      )
+      editor.session.$annotations[i].text ===
+      "Special characters must be escaped : [ < ]."
     ) {
-      editor.renderer.$gutterLayer.$annotations[i].text = [
-        "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ &#60 ]",
+      editor.session.$annotations[i].text = [
+        "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ < ]",
       ];
     }
 
