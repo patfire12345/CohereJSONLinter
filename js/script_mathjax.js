@@ -29,23 +29,42 @@ editor.session.on("changeAnnotation", function () {
         ...editor.session.$annotations.slice(i + 1),
       ]);
       continue;
-    }
-    if (
+    } else if (
       editor.session.$annotations[i].text ===
       "Special characters must be escaped : [ > ]."
     ) {
-      editor.session.$annotations[i].text = [
-        "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ > ]",
-      ];
-    }
-
-    if (
+      let newText =
+        "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ > ]";
+      let customAnnotation = {
+        column: editor.session.$annotations[i].column,
+        row: editor.session.$annotations[i].row,
+        text: newText,
+        type: editor.session.$annotations[i].type,
+      };
+      editor.session.setAnnotations([
+        ...editor.session.$annotations.slice(0, i),
+        customAnnotation,
+        ...editor.session.$annotations.slice(i + 1),
+      ]);
+      continue;
+    } else if (
       editor.session.$annotations[i].text ===
       "Special characters must be escaped : [ < ]."
     ) {
-      editor.session.$annotations[i].text = [
-        "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ < ]",
-      ];
+      let newText =
+        "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ < ]";
+      let customAnnotation = {
+        column: editor.session.$annotations[i].column,
+        row: editor.session.$annotations[i].row,
+        text: newText,
+        type: editor.session.$annotations[i].type,
+      };
+      editor.session.setAnnotations([
+        ...editor.session.$annotations.slice(0, i),
+        customAnnotation,
+        ...editor.session.$annotations.slice(i + 1),
+      ]);
+      continue;
     }
 
     i++;
