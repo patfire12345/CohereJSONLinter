@@ -13,7 +13,43 @@ editor.setOptions({
 });
 
 editor.session.on("change", function () {
-  renderHTML(editor);
+  renderHTML();
+});
+
+editor.session.on("changeAnnotation", function () {
+  let i = 0;
+  while (i < editor.session.$annotations?.length ?? 0) {
+    if (
+      editor.session.$annotations[i].text.includes(
+        "Doctype must be declared before any non-comment content.",
+      )
+    ) {
+      editor.session.setAnnotations([
+        ...editor.session.$annotations.slice(0, i),
+        ...editor.session.$annotations.slice(i + 1),
+      ]);
+      continue;
+    }
+    if (
+      editor.session.$annotations[i].text ===
+      "Special characters must be escaped : [ > ]."
+    ) {
+      editor.session.$annotations[i].text = [
+        "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ > ]",
+      ];
+    }
+
+    if (
+      editor.session.$annotations[i].text ===
+      "Special characters must be escaped : [ < ]."
+    ) {
+      editor.session.$annotations[i].text = [
+        "Special characters MUST be escaped (unless contained within valid LaTeX delimiters): [ < ]",
+      ];
+    }
+
+    i++;
+  }
 });
 
 // Drag-to-resize functionality
