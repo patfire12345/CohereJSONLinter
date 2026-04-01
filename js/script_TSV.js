@@ -53,7 +53,12 @@ function lintTSV() {
   }
 
   const rows = input.split("\n");
-  const numColumns = rows[0].split(/\t|\\t/).length;
+
+  if (delimiter.value === "Normal tab") {
+    var numColumns = rows[0].split(/\t/).length;
+  } else {
+    var numColumns = rows[0].split(/\\t/).length;
+  }
   const errorMessages = [];
   const tableRows = [];
   const headerRow = [];
@@ -65,7 +70,11 @@ function lintTSV() {
       tabWarning = true;
     }
 
-    const columns = row.split(/\t|\\t/);
+    if (delimiter.value === "Normal tab") {
+      var columns = row.split(/\t/);
+    } else {
+      var columns = row.split(/\\t/);
+    }
 
     if (!columns) {
       errorMessages.push(
