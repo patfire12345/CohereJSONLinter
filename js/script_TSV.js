@@ -53,7 +53,12 @@ function lintTSV() {
   }
 
   const rows = input.split("\n");
-  const numColumns = rows[0].split(/\t|\\t/).length;
+
+  if (delimiter.value === "Normal tab") {
+    var numColumns = rows[0].split(/\t/).length;
+  } else {
+    var numColumns = rows[0].split(/\\t/).length;
+  }
   const errorMessages = [];
   const tableRows = [];
   const headerRow = [];
@@ -65,11 +70,15 @@ function lintTSV() {
       tabWarning = true;
     }
 
-    const columns = row.split(/\t|\\t/);
+    if (delimiter.value === "Normal tab") {
+      var columns = row.split(/\t/);
+    } else {
+      var columns = row.split(/\\t/);
+    }
 
     if (!columns) {
       errorMessages.push(
-        `Error on row ${index + 1}: Row could not be parsed correctly.`
+        `Error on row ${index + 1}: Row could not be parsed correctly.`,
       );
       return;
     }
@@ -78,18 +87,18 @@ function lintTSV() {
       errorMessages.push(
         `Error on row ${index + 1}: Expected ${numColumns} columns, found ${
           columns.length
-        }.`
+        }.`,
       );
     }
 
     if (errorMessages.length === 0) {
       if (index === 0) {
         headerRow.push(
-          `<tr>${columns.map((column) => `<th>${column}</th>`).join("")}</tr>`
+          `<tr>${columns.map((column) => `<th>${column}</th>`).join("")}</tr>`,
         );
       } else {
         tableRows.push(
-          `<tr>${columns.map((column) => `<td>${column}</td>`).join("")}</tr>`
+          `<tr>${columns.map((column) => `<td>${column}</td>`).join("")}</tr>`,
         );
       }
     }
@@ -102,11 +111,11 @@ function lintTSV() {
       .join("")}</ul></div>`;
   } else if (tabWarning) {
     outputDiv.innerHTML = `<div class="alert alert-warning" role="alert">Warning: \\t is followed by non-space characters</div><table class="table table-bordered"><thead>${headerRow.join(
-      ""
+      "",
     )}</thead><tbody>${tableRows.join("")}</tbody></table>`;
   } else {
     outputDiv.innerHTML = `<div class="alert alert-success" role="alert">Valid TSV!</div><table class="table table-bordered"><thead>${headerRow.join(
-      ""
+      "",
     )}</thead><tbody>${tableRows.join("")}</tbody></table>`;
   }
 }
