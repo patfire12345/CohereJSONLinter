@@ -69,7 +69,7 @@ function lintTSV() {
 
     if (!columns) {
       errorMessages.push(
-        `Error on row ${index + 1}: Row could not be parsed correctly.`
+        `Error on row ${index + 1}: Row could not be parsed correctly.`,
       );
       return;
     }
@@ -78,18 +78,18 @@ function lintTSV() {
       errorMessages.push(
         `Error on row ${index + 1}: Expected ${numColumns} columns, found ${
           columns.length
-        }.`
+        }.`,
       );
     }
 
     if (errorMessages.length === 0) {
       if (index === 0) {
         headerRow.push(
-          `<tr>${columns.map((column) => `<th>${column}</th>`).join("")}</tr>`
+          `<tr>${columns.map((column) => `<th>${column}</th>`).join("")}</tr>`,
         );
       } else {
         tableRows.push(
-          `<tr>${columns.map((column) => `<td>${column}</td>`).join("")}</tr>`
+          `<tr>${columns.map((column) => `<td>${column}</td>`).join("")}</tr>`,
         );
       }
     }
@@ -102,11 +102,11 @@ function lintTSV() {
       .join("")}</ul></div>`;
   } else if (tabWarning) {
     outputDiv.innerHTML = `<div class="alert alert-warning" role="alert">Warning: \\t is followed by non-space characters</div><table class="table table-bordered"><thead>${headerRow.join(
-      ""
+      "",
     )}</thead><tbody>${tableRows.join("")}</tbody></table>`;
   } else {
     outputDiv.innerHTML = `<div class="alert alert-success" role="alert">Valid TSV!</div><table class="table table-bordered"><thead>${headerRow.join(
-      ""
+      "",
     )}</thead><tbody>${tableRows.join("")}</tbody></table>`;
   }
 }
