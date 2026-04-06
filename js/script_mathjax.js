@@ -20,12 +20,20 @@ editor.session.on("changeAnnotation", function () {
   let i = 0;
   while (i < editor.session.$annotations?.length ?? 0) {
     if (
-      editor.session.$annotations[i].text.includes(
-        "Doctype must be declared before any non-comment content.",
-      )
+      editor.session.$annotations[i].text ===
+      "Doctype must be declared before any non-comment content."
     ) {
+      let newText =
+        "Doctype must be declared before any non-comment content (unless the code is a snippet adding to existing HTML).";
+      let customAnnotation = {
+        column: editor.session.$annotations[i].column,
+        row: editor.session.$annotations[i].row,
+        text: newText,
+        type: editor.session.$annotations[i].type,
+      };
       editor.session.setAnnotations([
         ...editor.session.$annotations.slice(0, i),
+        customAnnotation,
         ...editor.session.$annotations.slice(i + 1),
       ]);
       continue;
