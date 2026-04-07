@@ -40,8 +40,6 @@ class Navbar extends HTMLElement {
             </div>
         </nav>
     `;
-
-    console.log(this.innerHTML);
   }
 }
 
