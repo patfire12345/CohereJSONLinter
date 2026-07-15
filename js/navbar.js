@@ -18,9 +18,6 @@ class Navbar extends HTMLElement {
                     <li class=${this.innerText === "index.html" ? active : inactive}>
                     <a class="nav-link" href="index.html">HTML Renderer</a>
                     </li>
-                    <li class=${this.innerText === "mathjax.html" ? active : inactive}>
-                    <a class="nav-link" href="mathjax.html">HTML (with LaTeX) Renderer</a>
-                    </li>
                     <li class=${this.innerText === "JSONlint.html" ? active : inactive}>
                     <a class="nav-link" href="JSONlint.html">JSON Linter</a>
                     </li>
