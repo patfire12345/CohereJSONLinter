@@ -1,34 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON Linter</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style_JSON.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
+    <script src="js/navbar.js" type="text/javascript" defer></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JSON Linter</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style_JSON.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
-  <script src="js/navbar.js" type="text/javascript" defer></script>
-</head>
+  <body>
+    <navbar-header>JSONlint.html</navbar-header>
 
-<body>
-  <navbar-header>JSONlint.html</navbar-header>
+    <div id="editor-container">
+      <div id="editor"></div>
+      <div id="resizer"></div>
+    </div>
+    <div class="button-container">
+      <button onclick="lintJSON()" class="btn btn-primary">
+        Validate JSON
+      </button>
+    </div>
 
-  <div id="editor-container">
-    <div id="editor"></div>
-    <div id="resizer"></div>
-  </div>
-  <div class="button-container">
-    <button onclick="lintJSON()" class="btn btn-primary">
-      Validate JSON
-    </button>
-  </div>
-
-  <!-- <button onclick="lintJSON()" class="btn btn-primary">Validate JSON</button> -->
-  <div id="output"></div>
-  <!-- <button onclick="lintJSON()">Lint JSON</button>
-    <div id="output"></div> -->
-</body>
-<script src="js/script_JSON.js"></script>
-
+    <div id="output"></div>
+  </body>
+  <script src="js/script_JSON.js"></script>
 </html>

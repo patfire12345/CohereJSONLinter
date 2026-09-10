@@ -1,4 +1,3 @@
-// script_TSV.js
 var editor = ace.edit("editor");
 editor.session.setMode("ace/mode/text");
 
@@ -12,7 +11,6 @@ editor.setOptions({
   showGutter: true,
 });
 
-// Drag-to-resize functionality
 const editorContainer = document.getElementById("editor-container");
 const editorDiv = document.getElementById("editor");
 const resizer = document.getElementById("resizer");

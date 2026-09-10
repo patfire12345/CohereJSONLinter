@@ -1,4 +1,3 @@
-// script_JSONL.js
 var editor = ace.edit("editor");
 editor.session.setMode("ace/mode/json");
 editor.setOptions({
@@ -9,7 +8,6 @@ editor.setOptions({
 
 editor.focus();
 
-// Drag-to-resize functionality
 const editorContainer = document.getElementById("editor-container");
 const editorDiv = document.getElementById("editor");
 const resizer = document.getElementById("resizer");

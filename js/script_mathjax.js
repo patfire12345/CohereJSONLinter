@@ -1,4 +1,3 @@
-// script.js
 var editor = ace.edit("editor");
 editor.session.setMode("ace/mode/html");
 
@@ -79,7 +78,6 @@ editor.session.on("changeAnnotation", function () {
   }
 });
 
-// Drag-to-resize functionality
 const editorContainer = document.getElementById("editor-container");
 const editorDiv = document.getElementById("editor");
 const resizer = document.getElementById("resizer");
@@ -124,7 +122,6 @@ function renderHTML() {
   };
 }
 
-// Prevent iframe from interacting with resizer
 const iframe = document.getElementById("output");
 
 resizer.addEventListener("mousedown", () => {
@@ -138,7 +135,6 @@ function stopDrag() {
 }
 
 function bindAnchorClicks(frame) {
-  // Get all anchor tags in the iframe document
   var anchors = frame.contentDocument.querySelectorAll('a[href^="#"]');
   anchors.forEach((anchor) => {
     anchor.addEventListener("click", function (event) {
@@ -148,7 +144,6 @@ function bindAnchorClicks(frame) {
       if (targetElement) {
         targetElement.scrollIntoView();
 
-        // Update the hash in the iframe's URL
         frame.contentWindow.location.hash = targetId;
       }
     });

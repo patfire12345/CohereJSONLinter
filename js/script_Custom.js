@@ -1,4 +1,3 @@
-// script_CSV.js
 var editor = ace.edit("editor");
 editor.session.setMode("ace/mode/text");
 editor.setOptions({
@@ -9,7 +8,6 @@ editor.setOptions({
 
 editor.focus();
 
-// Drag-to-resize functionality
 const editorContainer = document.getElementById("editor-container");
 const editorDiv = document.getElementById("editor");
 const resizer = document.getElementById("resizer");
@@ -54,7 +52,6 @@ function lintCustom() {
   const outputDiv = document.getElementById("output");
   const delimiter = document.getElementById("delimiter").value;
 
-  // RFC 4180 requires CRLF (\r\n) line endings, but we allow LF too for practicality
   const lines = csvString.split(/\r\n|\n/);
 
   if (lines.length === 0) {
@@ -62,7 +59,6 @@ function lintCustom() {
     return;
   }
 
-  // Count number of columns
   const firstRow = parseCSVRow(lines[0], delimiter);
   if (!firstRow) {
     outputDiv.innerHTML = `<div class="alert alert-danger">Error on row 1: Row could not be parsed correctly.</div>`;
@@ -87,7 +83,6 @@ function lintCustom() {
       );
     }
 
-    // Prepare data for table rendering if no errors
     if (errorMessages.length === 0) {
       if (i === 0) {
         headerRow.push(
@@ -123,11 +118,9 @@ function parseCSVRow(row, delimiter) {
     if (inQuotes) {
       if (char === '"') {
         if (row[i + 1] === '"') {
-          // Escaped quote
           field += '"';
           i++;
         } else {
-          // Closing quote
           inQuotes = false;
         }
       } else {

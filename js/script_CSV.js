@@ -1,4 +1,3 @@
-// script_CSV.js
 var editor = ace.edit("editor");
 editor.session.setMode("ace/mode/text");
 editor.setOptions({
@@ -9,7 +8,6 @@ editor.setOptions({
 
 editor.focus();
 
-// Drag-to-resize functionality
 const editorContainer = document.getElementById("editor-container");
 const editorDiv = document.getElementById("editor");
 const resizer = document.getElementById("resizer");
@@ -47,7 +45,6 @@ function lintCSV() {
   const headerRow = [];
   const outputDiv = document.getElementById("output");
 
-  // RFC 4180 requires CRLF (\r\n) line endings, but we allow LF too for practicality
   const lines = csvString.split(/\r\n|\n/);
 
   if (lines.length === 0) {
@@ -55,7 +52,6 @@ function lintCSV() {
     return;
   }
 
-  // Count number of columns
   const firstRow = parseCSVRow(lines[0]);
   if (!firstRow) {
     outputDiv.innerHTML = `<div class="alert alert-danger">Error on row 1: Row could not be parsed correctly.</div>`;
@@ -68,7 +64,7 @@ function lintCSV() {
     const row = parseCSVRow(lines[i]);
     if (!row) {
       errorMessages.push(
-        `Error on row ${i + 1}: Row could not be parsed correctly.`
+        `Error on row ${i + 1}: Row could not be parsed correctly.`,
       );
     }
 
@@ -76,19 +72,18 @@ function lintCSV() {
       errorMessages.push(
         `Error on row ${i + 1}: Expected ${columnCount} columns, found ${
           row.length
-        }.`
+        }.`,
       );
     }
 
-    // Prepare data for table rendering if no errors
     if (errorMessages.length === 0) {
       if (i === 0) {
         headerRow.push(
-          `<tr>${row.map((column) => `<th>${column}</th>`).join("")}</tr>`
+          `<tr>${row.map((column) => `<th>${column}</th>`).join("")}</tr>`,
         );
       } else {
         tableRows.push(
-          `<tr>${row.map((column) => `<td>${column}</td>`).join("")}</tr>`
+          `<tr>${row.map((column) => `<td>${column}</td>`).join("")}</tr>`,
         );
       }
     }
@@ -100,7 +95,7 @@ function lintCSV() {
       .join("")}</ul></div>`;
   } else {
     outputDiv.innerHTML = `<div class="alert alert-success" role="alert">Valid CSV!</div><table class="table table-bordered"><thead><tr>${headerRow.join(
-      ""
+      "",
     )}</tr></thead><tbody>${tableRows.join("")}</tbody></table>`;
   }
 }
@@ -116,11 +111,9 @@ function parseCSVRow(row) {
     if (inQuotes) {
       if (char === '"') {
         if (row[i + 1] === '"') {
-          // Escaped quote
           field += '"';
           i++;
         } else {
-          // Closing quote
           inQuotes = false;
         }
       } else {
